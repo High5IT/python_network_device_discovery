@@ -2,7 +2,7 @@
 
 import socket
 
-message = ("M-SEARCH * HTTP/1.1\r\n" \
+discoveryMessage = ("M-SEARCH * HTTP/1.1\r\n" \
     "HOST:239.255.255.250:1900\r\n" \
     "ST:upnp:rootdevice\r\n" \
     "MX:2\r\n" \
@@ -16,11 +16,11 @@ udpSocket.settimeout(5)
 
 #UPnP discovery (SSDP)
 #---------------------------------------------------------------------------------
-udpSocket.sendto(message.encode("utf-8"), ("239.255.255.250", 1900) )
+udpSocket.sendto(discoveryMessage.encode("utf-8"), ("239.255.255.250", 1900) )
 
 try:
     while True:
-        data, address = udpSocket.recvfrom(1024)
-        print (address, data)
+            deviceAnswer = udpSocket.recvfrom(1024)
+            print (deviceAnswer)
 except socket.timeout:
     pass
